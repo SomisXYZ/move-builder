@@ -1,0 +1,11 @@
+[package]
+name = "{{ name_no_space }}"
+version = "0.0.1"
+
+[dependencies.NftProtocol]
+git = "git@github.com:Origin-Byte/nft-protocol.git"
+rev = "0.25.0"
+
+[addresses]
+sui =  "0x2"
+{{ name_lower_no_space }} = "0x0"
