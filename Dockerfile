@@ -1,20 +1,13 @@
-FROM debian:bullseye-slim as sui
+FROM node:16-bullseye-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y wget
+RUN apt-get update && apt-get install -y wget git
 
 ENV SUI_VERSION="devnet-0.27.0"
 
 RUN wget "https://github.com/MystenLabs/sui/releases/download/$SUI_VERSION/sui"
-
 RUN chmod a+x sui
-
-#------------
-
-FROM node:16-bullseye-slim
-
-WORKDIR /app
 
 COPY package.json .
 COPY yarn.lock .
@@ -25,7 +18,8 @@ COPY . .
 
 RUN yarn build
 
-COPY --from=sui /app/sui .
+ENV PATH="$PATH:/app"
+
+RUN sui move build --path ./warmup
 
 ENTRYPOINT node dist/main
-

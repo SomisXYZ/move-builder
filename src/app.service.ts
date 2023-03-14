@@ -13,10 +13,10 @@ import {
 const BASE_PATH = '/tmp/move-builder';
 
 export const BuildModuleInputSchema = z.object({
-  collectionName: z.string(),
-  description: z.string(),
-  symbol: z.string(),
-  url: z.string(),
+  collectionName: z.string().min(1).max(50),
+  description: z.string().min(0).max(300),
+  symbol: z.string().min(0).max(8),
+  url: z.string().min(0).max(30),
   royalty: z.number().int().min(0).max(10000),
 });
 
@@ -81,6 +81,18 @@ export class AppService {
   private async formatTemplate(path: string, data: BuildModuleInputDto) {
     await this.formatToml(path, data);
     await this.formatMove(path, data);
+  }
+
+  async getSuiVersion() {
+    try {
+      const { stdout } = await execAsync(`sui --version`, {
+        encoding: 'ascii',
+      });
+
+      return stdout;
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   async build(data: BuildModuleInputDto) {

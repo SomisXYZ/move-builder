@@ -6,8 +6,9 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return 'OK';
+  async healthcheck(): Promise<string> {
+    const suiVersion = await this.appService.getSuiVersion();
+    return `Service is running ${suiVersion}`;
   }
 
   @Post('/build')

@@ -1,5 +1,5 @@
 [package]
-name = "{{ name_no_space }}"
+name = "Warmup"
 version = "0.0.1"
 
 [dependencies.NftProtocol]
@@ -8,4 +8,4 @@ rev = "0.25.0"
 
 [addresses]
 sui =  "0x2"
-{{ name_lower_no_space }} = "0x0"
+warmup = "0x0"
