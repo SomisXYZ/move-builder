@@ -4,7 +4,7 @@ version = "0.0.1"
 
 [dependencies.NftProtocol]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "0.25.0"
+rev = "develop"
 
 [addresses]
 sui =  "0x2"
