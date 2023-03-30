@@ -106,8 +106,9 @@ export class AppService {
         },
       );
 
-      const parsed: string[] = JSON.parse(stdout);
-      return parsed[0];
+      const parsed: { modules: string[]; dependencies: string[] } =
+        JSON.parse(stdout);
+      return parsed;
     } catch (err) {
       console.log(err);
     }

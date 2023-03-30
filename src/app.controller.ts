@@ -12,7 +12,7 @@ export class AppController {
   }
 
   @Post('/build')
-  async build(@Body() body: BuildModuleInputDto): Promise<{ buffer: string }> {
-    return { buffer: await this.appService.build(body) };
+  async build(@Body() body: BuildModuleInputDto) {
+    return await this.appService.build(body);
   }
 }
