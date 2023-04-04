@@ -16,7 +16,7 @@ export const BuildModuleInputSchema = z.object({
   collectionName: z.string().min(1).max(50),
   description: z.string().min(0).max(300),
   symbol: z.string().min(0).max(8),
-  url: z.string().min(0).max(30),
+  url: z.string().min(0).max(100),
   royalty: z.number().int().min(0).max(10000),
 });
 
