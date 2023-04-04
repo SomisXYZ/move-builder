@@ -42,11 +42,11 @@ export class AppService {
     const template = await fs.promises.readFile(filePath, 'utf8');
 
     const formatted = template
-      .replace(
+      .replaceAll(
         '{{ name_lower_no_space }}',
         spaceToUnderscore(data.collectionName).toLowerCase(),
       )
-      .replace('{{ name_no_space }}', removeSpace(data.collectionName));
+      .replaceAll('{{ name_no_space }}', removeSpace(data.collectionName));
 
     await fs.promises.writeFile(filePath, formatted);
   }
@@ -60,7 +60,7 @@ export class AppService {
     const template = await fs.promises.readFile(readFilePath, 'utf8');
 
     const formatted = template
-      .replace(
+      .replaceAll(
         '{{ name_lower_no_space }}',
         spaceToUnderscore(data.collectionName).toLowerCase(),
       )

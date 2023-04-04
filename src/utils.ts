@@ -51,9 +51,9 @@ export async function copyFolderRecursive(source: string, target: string) {
 }
 
 export function spaceToUnderscore(str: string) {
-  return str.replace(' ', '_');
+  return str.replaceAll(' ', '_');
 }
 
 export function removeSpace(str: string) {
-  return str.replace(' ', '');
+  return str.replaceAll(' ', '');
 }
