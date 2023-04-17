@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as fs from 'fs';
 import { createZodDto } from 'nestjs-zod';
+import * as _ from 'lodash';
 
 import { z } from 'zod';
 import {
@@ -69,7 +70,7 @@ export class AppService {
         'MODULE_NAME',
         spaceToUnderscore(data.collectionName).toUpperCase(),
       )
-      .replaceAll('ModuleName', removeSpace(data.collectionName))
+      .replaceAll('ModuleName', removeSpace(_.capitalize(data.collectionName)))
       .replaceAll('{{ name }}', data.collectionName)
       .replaceAll('{{ description }}', data.description)
       .replaceAll('{{ url }}', data.url)
