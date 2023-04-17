@@ -22,6 +22,7 @@ module module_name::module_name {
     use nft_protocol::warehouse::{Self, Warehouse};
     use nft_protocol::witness;
     use nft_protocol::symbol::{Self};
+    use nft_protocol::orderbook::{Self};
 
     /// One time witness is only instantiated in the init method
     struct MODULE_NAME has drop {}
@@ -107,12 +108,15 @@ module module_name::module_name {
             ctx,
         );
 
+        let orderbook = orderbook::new_unprotected<ModuleName, sui::sui::SUI>(ctx);
+
         transfer::public_transfer(publisher, sender);
         transfer::public_transfer(mint_cap, sender);
         transfer::public_transfer(transfer_policy_cap, sender);
         transfer::public_share_object(listing);
         transfer::public_share_object(collection);
         transfer::public_share_object(transfer_policy);
+        transfer::public_share_object(orderbook);
     }
 
     public entry fun mint_nft(
