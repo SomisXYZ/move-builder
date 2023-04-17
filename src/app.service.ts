@@ -18,6 +18,7 @@ export const BuildModuleInputSchema = z.object({
   symbol: z.string().min(0).max(8),
   url: z.string().min(0).max(100),
   royalty: z.number().int().min(0).max(10000),
+  price: z.number().int().min(0),
 });
 
 export class BuildModuleInputDto extends createZodDto(BuildModuleInputSchema) {}
@@ -43,17 +44,17 @@ export class AppService {
 
     const formatted = template
       .replaceAll(
-        '{{ name_lower_no_space }}',
+        'module_name',
         spaceToUnderscore(data.collectionName).toLowerCase(),
       )
-      .replaceAll('{{ name_no_space }}', removeSpace(data.collectionName));
+      .replaceAll('moduleName', removeSpace(data.collectionName));
 
     await fs.promises.writeFile(filePath, formatted);
   }
 
   private async formatMove(path: string, data: BuildModuleInputDto) {
-    const readFilePath = `${path}/sources/module.move.template`;
-    const writeFilePath = `${path}/sources/${removeSpace(
+    const readFilePath = `${path}/sources/module_name.move`;
+    const writeFilePath = `${path}/sources/${spaceToUnderscore(
       data.collectionName,
     ).toLowerCase()}.move`;
 
@@ -61,20 +62,22 @@ export class AppService {
 
     const formatted = template
       .replaceAll(
-        '{{ name_lower_no_space }}',
+        'module_name',
         spaceToUnderscore(data.collectionName).toLowerCase(),
       )
-      .replaceAll('{{ name_no_space }}', removeSpace(data.collectionName))
       .replaceAll(
-        '{{ name_upper_no_space }}',
-        removeSpace(data.collectionName).toUpperCase(),
+        'MODULE_NAME',
+        spaceToUnderscore(data.collectionName).toUpperCase(),
       )
+      .replaceAll('ModuleName', removeSpace(data.collectionName))
       .replaceAll('{{ name }}', data.collectionName)
       .replaceAll('{{ description }}', data.description)
       .replaceAll('{{ url }}', data.url)
       .replaceAll('{{ symbol }}', data.symbol)
-      .replaceAll('{{ royalty }}', data.royalty.toString());
+      .replaceAll('100', data.royalty.toString())
+      .replaceAll('500', data.price.toString());
 
+    await fs.promises.unlink(readFilePath);
     await fs.promises.writeFile(writeFilePath, formatted);
   }
 

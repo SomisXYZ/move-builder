@@ -1,11 +1,11 @@
 [package]
-name = "{{ name_no_space }}"
+name = "moduleName"
 version = "0.0.1"
 
 [dependencies.NftProtocol]
-git = "https://github.com/ReleapIO/sui-nft-protocol.git"
-rev = "testnet"
+git = "https://github.com/Origin-Byte/nft-protocol.git"
+rev = "50bd6ecd1730229e4484e2455e559fb9ec9d0bf4"
 
 [addresses]
 sui =  "0x2"
-{{ name_lower_no_space }} = "0x0"
+module_name = "0x0"
