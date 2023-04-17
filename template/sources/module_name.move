@@ -22,7 +22,6 @@ module module_name::module_name {
     use nft_protocol::warehouse::{Self, Warehouse};
     use nft_protocol::witness;
     use nft_protocol::symbol::{Self};
-    use nft_protocol::url::{Self as display_url};
 
     /// One time witness is only instantiated in the init method
     struct MODULE_NAME has drop {}
@@ -136,5 +135,27 @@ module module_name::module_name {
 
         mint_event::mint_unlimited(mint_cap, &nft);
         warehouse::deposit_nft(warehouse, nft);
+    }
+
+    public entry fun mint_nft_to_wallet(
+        name: String,
+        description: String,
+        url: vector<u8>,
+        attribute_keys: vector<ascii::String>,
+        attribute_values: vector<ascii::String>,
+        mint_cap: &MintCap<ModuleName>,
+        wallet: address,
+        ctx: &mut TxContext,
+    ) {
+        let nft = ModuleName {
+            id: object::new(ctx),
+            name,
+            description,
+            url: url::new_unsafe_from_bytes(url),
+            attributes: attributes::from_vec(attribute_keys, attribute_values)
+        };
+
+        mint_event::mint_unlimited(mint_cap, &nft);
+        transfer::public_transfer(nft, wallet);
     }
 }
