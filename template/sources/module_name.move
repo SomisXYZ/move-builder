@@ -6,7 +6,7 @@ module module_name::module_name {
     use sui::url::{Self, Url};
     use sui::display;
     use sui::transfer;
-    use sui::object::{Self, UID};
+    use sui::object::{Self, ID, UID};
     use sui::vec_set;
     use sui::tx_context::{Self, TxContext};
     use sui::transfer_policy::{Self};
@@ -19,10 +19,12 @@ module module_name::module_name {
     use nft_protocol::mint_cap::MintCap;
     use nft_protocol::royalty_strategy_bps;
     use nft_protocol::tags;
-    use nft_protocol::warehouse::{Self, Warehouse};
+    use nft_protocol::warehouse::{Self};
+    use nft_protocol::inventory::{Self, Inventory};
     use nft_protocol::witness;
     use nft_protocol::symbol::{Self};
     use nft_protocol::orderbook::{Self};
+    use nft_protocol::listing::{Self, Listing};
 
     /// One time witness is only instantiated in the init method
     struct MODULE_NAME has drop {}
@@ -108,7 +110,7 @@ module module_name::module_name {
             ctx,
         );
 
-        let orderbook = orderbook::new_unprotected<ModuleName, sui::sui::SUI>(ctx);
+        //let orderbook = orderbook::new_unprotected<ModuleName, sui::sui::SUI>(ctx);
 
         transfer::public_transfer(publisher, sender);
         transfer::public_transfer(mint_cap, sender);
@@ -116,7 +118,7 @@ module module_name::module_name {
         transfer::public_share_object(listing);
         transfer::public_share_object(collection);
         transfer::public_share_object(transfer_policy);
-        transfer::public_share_object(orderbook);
+        //transfer::public_share_object(orderbook);
     }
 
     public entry fun mint_nft(
@@ -126,7 +128,8 @@ module module_name::module_name {
         attribute_keys: vector<ascii::String>,
         attribute_values: vector<ascii::String>,
         mint_cap: &MintCap<ModuleName>,
-        warehouse: &mut Warehouse<ModuleName>,
+        listing: &mut Listing,
+        inventory_id: ID,
         ctx: &mut TxContext,
     ) {
         let nft = ModuleName {
@@ -138,7 +141,9 @@ module module_name::module_name {
         };
 
         mint_event::mint_unlimited(mint_cap, &nft);
-        warehouse::deposit_nft(warehouse, nft);
+
+        let inventory = listing::inventory_admin_mut<ModuleName>(listing, inventory_id, ctx);
+        inventory::deposit_nft(inventory, nft);
     }
 
     public entry fun mint_nft_to_wallet(
