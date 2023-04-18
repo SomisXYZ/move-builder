@@ -70,7 +70,10 @@ export class AppService {
         'MODULE_NAME',
         spaceToUnderscore(data.collectionName).toUpperCase(),
       )
-      .replaceAll('ModuleName', removeSpace(_.startCase(data.collectionName)))
+      .replaceAll(
+        'ModuleName',
+        removeSpace(_.startCase(data.collectionName.toLowerCase())),
+      )
       .replaceAll('{{ name }}', data.collectionName)
       .replaceAll('{{ description }}', data.description)
       .replaceAll('{{ url }}', data.url)
