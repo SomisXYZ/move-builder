@@ -19,8 +19,7 @@ module module_name::module_name {
     use nft_protocol::mint_cap::MintCap;
     use nft_protocol::royalty_strategy_bps;
     use nft_protocol::tags;
-    use nft_protocol::warehouse::{Self};
-    use nft_protocol::inventory::{Self, Inventory};
+    use nft_protocol::inventory::{Self};
     use nft_protocol::witness;
     use nft_protocol::symbol::{Self};
     use nft_protocol::orderbook::{Self};
@@ -110,7 +109,7 @@ module module_name::module_name {
             ctx,
         );
 
-        //let orderbook = orderbook::new_unprotected<ModuleName, sui::sui::SUI>(ctx);
+        orderbook::create_unprotected<ModuleName, sui::sui::SUI>(ctx);
 
         transfer::public_transfer(publisher, sender);
         transfer::public_transfer(mint_cap, sender);
@@ -118,7 +117,6 @@ module module_name::module_name {
         transfer::public_share_object(listing);
         transfer::public_share_object(collection);
         transfer::public_share_object(transfer_policy);
-        //transfer::public_share_object(orderbook);
     }
 
     public entry fun mint_nft(
