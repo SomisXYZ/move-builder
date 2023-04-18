@@ -58,7 +58,7 @@ module module_name::module_name {
         let display = display::new<ModuleName>(&publisher, ctx);
         display::add(&mut display, string::utf8(b"name"), string::utf8(b"{name}"));
         display::add(&mut display, string::utf8(b"description"), string::utf8(b"{description}"));
-        display::add(&mut display, string::utf8(b"image_url"), string::utf8(b"https://{url}"));
+        display::add(&mut display, string::utf8(b"image_url"), string::utf8(b"{url}"));
         display::add(&mut display, string::utf8(b"attributes"), string::utf8(b"{attributes}"));
         display::update_version(&mut display);
         transfer::public_transfer(display, tx_context::sender(ctx));

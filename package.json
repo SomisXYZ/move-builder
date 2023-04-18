@@ -24,6 +24,7 @@
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@types/lodash": "^4.14.194",
     "lodash": "^4.17.21",
     "nestjs-zod": "^1.2.3",
     "reflect-metadata": "^0.1.13",
