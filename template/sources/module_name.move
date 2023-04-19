@@ -9,7 +9,6 @@ module module_name::module_name {
     use sui::object::{Self, ID, UID};
     use sui::vec_set;
     use sui::tx_context::{Self, TxContext};
-    use sui::transfer_policy::{Self};
 
     use nft_protocol::mint_event;
     use nft_protocol::creators;
@@ -24,6 +23,7 @@ module module_name::module_name {
     use nft_protocol::symbol::{Self};
     use nft_protocol::orderbook::{Self};
     use nft_protocol::listing::{Self, Listing};
+    use nft_protocol::ob_transfer_request::{Self};
 
     /// One time witness is only instantiated in the init method
     struct MODULE_NAME has drop {}
@@ -52,7 +52,7 @@ module module_name::module_name {
         // Init Publisher
         let publisher = sui::package::claim(otw, ctx);
 
-        let (transfer_policy, transfer_policy_cap) = transfer_policy::new<ModuleName>(&publisher, ctx);
+        let (transfer_policy, transfer_policy_cap) = ob_transfer_request::init_policy<ModuleName>(&publisher, ctx);
 
         // Init Display
         let display = display::new<ModuleName>(&publisher, ctx);
