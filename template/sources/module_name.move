@@ -11,6 +11,7 @@ module module_name::module_name {
     use sui::object::{Self, ID, UID};
     use sui::vec_set;
     use sui::tx_context::{Self, TxContext};
+    use sui::dynamic_field::{Self};
 
     use nft_protocol::mint_event;
     use nft_protocol::mint_cap;
@@ -241,6 +242,9 @@ module module_name::module_name {
         metadataStore: &mut MetadataStore,
         _ctx: &mut TxContext,
     ) {
+        let revealed = dynamic_field::exists_with_type<ID, bool>(&mut metadataStore.id, object::id(nft));
+        assert!(!revealed, 1);
+
         let name = vector::pop_back<String>(&mut metadataStore.name);
         let description = vector::pop_back<String>(&mut metadataStore.description);
         if (!string::is_empty(&name)) {
@@ -251,5 +255,8 @@ module module_name::module_name {
         };
         nft.url = vector::pop_back<Url>(&mut metadataStore.url);
         nft.attributes = vector::pop_back<Attributes>(&mut metadataStore.attributes);
+
+        // prevent the same nft to call the function again
+        dynamic_field::add<ID, bool>(&mut metadataStore.id, object::id(nft), true);
     }
 }
