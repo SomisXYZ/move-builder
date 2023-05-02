@@ -4,7 +4,13 @@ version = "0.0.1"
 
 [dependencies.NftProtocol]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "50bd6ecd1730229e4484e2455e559fb9ec9d0bf4"
+rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db"
+subdir = "contracts/nft_protocol"
+
+[dependencies.Launchpad]
+git = "https://github.com/Origin-Byte/nft-protocol.git"
+rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db"
+subdir = "contracts/launchpad"
 
 [addresses]
 sui =  "0x2"
