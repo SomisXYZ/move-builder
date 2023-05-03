@@ -16,6 +16,7 @@ module module_name::module_name {
     use nft_protocol::mint_event;
     use nft_protocol::mint_cap;
     use nft_protocol::creators;
+    use nft_protocol::royalty;
     use nft_protocol::attributes::{Self, Attributes};
     use nft_protocol::collection;
     use nft_protocol::display_info;
@@ -66,8 +67,9 @@ module module_name::module_name {
 
         // Init Publisher
         let publisher = sui::package::claim(otw, ctx);
+        let dw = witness::from_witness(Witness {});
 
-        let (transfer_policy, transfer_policy_cap) = transfer_request::init_policy<ModuleName>(&publisher, ctx);
+        let tags = vector[tags::art()];
 
         // Init Display
         let display = display::new<ModuleName>(&publisher, ctx);
@@ -75,40 +77,40 @@ module module_name::module_name {
         display::add(&mut display, string::utf8(b"description"), string::utf8(b"{description}"));
         display::add(&mut display, string::utf8(b"image_url"), string::utf8(b"{url}"));
         display::add(&mut display, string::utf8(b"attributes"), string::utf8(b"{attributes}"));
+        display::add(&mut display, string::utf8(b"tags"), ob_utils::display::from_vec(tags));
         display::update_version(&mut display);
         transfer::public_transfer(display, tx_context::sender(ctx));
 
-        // Get the Delegated Witness
-        let dw = witness::from_witness(Witness {});
+        collection::add_domain(dw, &mut collection, display_info::new(
+            string::utf8(b"{{ name }}"), 
+            string::utf8(b"{{ description }}")
+        ));
 
-        // Add name and description to Collection
-        collection::add_domain(dw, &mut collection, display_info::new( string::utf8(b"{{ name }}"), string::utf8(b"{{ description }}")));
-        collection::add_domain(dw, &mut collection, symbol::new(string::utf8(b"{{ symbol }}")));
-        //collection::add_domain(dw, &mut collection, display_url::new(string::utf8(b"{{ url }}")));
-
+        let creators = vector[@module_creator_placeholder];
+        let shares = vector[10_000];
         // Creators domain
         collection::add_domain(
             dw,
             &mut collection,
-            creators::new(vec_set::singleton(sender)),
+            creators::new(ob_utils::utils::vec_set_from_vec(&creators)),
         );
 
-       let (withdraw_policy, withdraw_policy_cap) =  withdraw_request::init_policy<ModuleName>(
+        let (withdraw_policy, withdraw_policy_cap) =  withdraw_request::init_policy<ModuleName>(
            &publisher, 
            ctx
         );
 
-        // Royalties
+        let shares = ob_utils::utils::from_vec_to_map(creators, shares);
         royalty_strategy_bps::create_domain_and_add_strategy(
-            dw, &mut collection, 100, ctx,
+            dw, &mut collection, royalty::from_shares(shares, ctx), 100, ctx,
         );
+
+        let (transfer_policy, transfer_policy_cap) = transfer_request::init_policy<ModuleName>(&publisher, ctx);
 
         // Enforce Royalty
         royalty_strategy_bps::enforce(&mut transfer_policy, &transfer_policy_cap);
-
-        // Tags
-        let tags = vector[tags::art()];
-        collection::add_domain(dw, &mut collection, tags);
+        let (p2p_policy, p2p_policy_cap) = transfer_request::init_policy<ModuleName>(&publisher, ctx);
+        nft_protocol::p2p_list::enforce(&mut p2p_policy, &p2p_policy_cap);
 
         let listing = listing::new(
             tx_context::sender(ctx),
@@ -137,11 +139,13 @@ module module_name::module_name {
         transfer::public_transfer(publisher, sender);
         transfer::public_transfer(mint_cap, sender);
         transfer::public_transfer(transfer_policy_cap, sender);
-        transfer::public_transfer(withdraw_policy_cap, tx_context::sender(ctx));
+        transfer::public_transfer(p2p_policy_cap, sender);
+        transfer::public_transfer(withdraw_policy_cap, sender);
         transfer::public_share_object(listing);
         transfer::public_share_object(collection);
         transfer::public_share_object(transfer_policy);
         transfer::public_share_object(withdraw_policy);
+        transfer::public_share_object(p2p_policy);
     }
 
     public entry fun mint_nft(

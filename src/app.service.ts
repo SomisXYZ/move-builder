@@ -20,6 +20,7 @@ export const BuildModuleInputSchema = z.object({
   url: z.string().min(0).max(100),
   royalty: z.number().int().min(0).max(10000),
   price: z.number().int().min(0),
+  creator: z.string().min(68).max(68),
 });
 
 export class BuildModuleInputDto extends createZodDto(BuildModuleInputSchema) {}
@@ -78,6 +79,7 @@ export class AppService {
       .replaceAll('{{ description }}', data.description)
       .replaceAll('{{ url }}', data.url)
       .replaceAll('{{ symbol }}', data.symbol)
+      .replaceAll('module_creator_placeholder', data.creator)
       .replaceAll('100', data.royalty.toString())
       .replaceAll('500', data.price.toString());
 

@@ -4,13 +4,19 @@
 version = 0
 
 dependencies = [
+  { name = "Allowlist" },
+  { name = "Authlist" },
+  { name = "Kiosk" },
   { name = "Launchpad" },
+  { name = "LiquidityLayer" },
   { name = "NftProtocol" },
+  { name = "Permissions" },
+  { name = "Utils" },
 ]
 
 [[move.package]]
 name = "Allowlist"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/allowlist" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/allowlist" }
 
 dependencies = [
   { name = "Permissions" },
@@ -19,7 +25,7 @@ dependencies = [
 
 [[move.package]]
 name = "Authlist"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/authlist" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/authlist" }
 
 dependencies = [
   { name = "Permissions" },
@@ -28,7 +34,7 @@ dependencies = [
 
 [[move.package]]
 name = "Kiosk"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/kiosk" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/kiosk" }
 
 dependencies = [
   { name = "Originmate" },
@@ -39,18 +45,18 @@ dependencies = [
 
 [[move.package]]
 name = "Launchpad"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/launchpad" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/launchpad" }
 
 dependencies = [
   { name = "Kiosk" },
   { name = "Originmate" },
-  { name = "Request" },
+  { name = "Pseudorandom" },
   { name = "Sui" },
 ]
 
 [[move.package]]
 name = "LiquidityLayer"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/liquidity_layer" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/liquidity_layer" }
 
 dependencies = [
   { name = "Allowlist" },
@@ -64,11 +70,11 @@ dependencies = [
 
 [[move.package]]
 name = "MoveStdlib"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "c525ba6489261ff6db65e87bf9a3fdda0a6c7be3", subdir = "crates/sui-framework/packages/move-stdlib" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "09b2081498366df936abae26eea4b2d5cafb2788", subdir = "crates/sui-framework/packages/move-stdlib" }
 
 [[move.package]]
 name = "NftProtocol"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/nft_protocol" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/nft_protocol" }
 
 dependencies = [
   { name = "Allowlist" },
@@ -77,6 +83,7 @@ dependencies = [
   { name = "LiquidityLayer" },
   { name = "Originmate" },
   { name = "Permissions" },
+  { name = "Pseudorandom" },
   { name = "Request" },
   { name = "Sui" },
   { name = "Utils" },
@@ -84,7 +91,7 @@ dependencies = [
 
 [[move.package]]
 name = "Originmate"
-source = { git = "https://github.com/Origin-Byte/originmate.git", rev = "38743a3700abf8577a17e2751e82a4c0c249dfb3", subdir = "" }
+source = { git = "https://github.com/Origin-Byte/originmate.git", rev = "de8360c7c25f52bf2593721a82cd6c7b66001faf", subdir = "" }
 
 dependencies = [
   { name = "Sui" },
@@ -92,7 +99,7 @@ dependencies = [
 
 [[move.package]]
 name = "Permissions"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/permissions" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/permissions" }
 
 dependencies = [
   { name = "Sui" },
@@ -100,18 +107,25 @@ dependencies = [
 ]
 
 [[move.package]]
-name = "Request"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/request" }
+name = "Pseudorandom"
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/pseudorandom" }
 
 dependencies = [
-  { name = "Originmate" },
+  { name = "Sui" },
+]
+
+[[move.package]]
+name = "Request"
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/request" }
+
+dependencies = [
   { name = "Permissions" },
   { name = "Sui" },
 ]
 
 [[move.package]]
 name = "Sui"
-source = { git = "https://github.com/MystenLabs/sui.git", rev = "c525ba6489261ff6db65e87bf9a3fdda0a6c7be3", subdir = "crates/sui-framework/packages/sui-framework" }
+source = { git = "https://github.com/MystenLabs/sui.git", rev = "09b2081498366df936abae26eea4b2d5cafb2788", subdir = "crates/sui-framework/packages/sui-framework" }
 
 dependencies = [
   { name = "MoveStdlib" },
@@ -119,9 +133,9 @@ dependencies = [
 
 [[move.package]]
 name = "Utils"
-source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "e8109bfcdca9dd3531b46e78a1c75adb1a4be5db", subdir = "contracts/utils" }
+source = { git = "https://github.com/Origin-Byte/nft-protocol.git", rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e", subdir = "contracts/utils" }
 
 dependencies = [
-  { name = "Originmate" },
+  { name = "Pseudorandom" },
   { name = "Sui" },
 ]
