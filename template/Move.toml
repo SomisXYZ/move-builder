@@ -1,45 +1,45 @@
 [package]
 name = "moduleName"
-version = "0.0.1"
+version = "1.0.0"
 
 [dependencies.NftProtocol]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/nft_protocol"
 
 [dependencies.Permissions]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/permissions"
 
 [dependencies.LiquidityLayer]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/liquidity_layer"
 
 [dependencies.Allowlist]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/allowlist"
 
 [dependencies.Authlist]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/authlist"
 
 [dependencies.Kiosk]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/kiosk"
 
 [dependencies.Launchpad]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/launchpad"
 
 [dependencies.Utils]
 git = "https://github.com/Origin-Byte/nft-protocol.git"
-rev = "fa97ad8156e5583f48173be6dbf1ad080106c15e"
+rev = "b2b7a41eb4a24fb486071c9f810f0a0a487848a7"
 subdir = "contracts/utils"
 
 [addresses]
