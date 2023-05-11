@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y git curl
 
-ENV SUI_VERSION="devnet-0.33.0"
+ENV SUI_VERSION="sui-v1.0.0"
 
 RUN curl -L "https://github.com/MystenLabs/sui/releases/download/$SUI_VERSION/sui" --output sui
 
