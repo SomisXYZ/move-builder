@@ -1,16 +1,16 @@
-name: Somis Move Builder CI/CD (staging)
+name: Somis Move Builder CI/CD (production)
 
 on:
   push:
     branches:
-      - testnet
+      - main
 
 env:
-  AWS_REGION: ap-southeast-1
-  ECR_REPOSITORY: 295113269870.dkr.ecr.ap-southeast-1.amazonaws.com/somis-move-builder
+  AWS_REGION: us-east-2
+  ECR_REPOSITORY: 295113269870.dkr.ecr.us-east-2.amazonaws.com/somis-move-builder
   REPOSITORY: somis-move-builder
   ECS_SERVICE: somis-move-builder
-  ECS_CLUSTER: somis-staging
+  ECS_CLUSTER: somis-production
   ECS_TASK_DEFINITION: somis-move-builder
   CONTAINER_NAME: somis-move-builder
 
