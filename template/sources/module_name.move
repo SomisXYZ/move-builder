@@ -10,10 +10,7 @@ module module_name::module_name {
     use sui::package::{Self, Publisher};
     use sui::object::{Self, ID, UID};
     use sui::vec_set;
-    use sui::tx_context::{Self, TxContext};
-    use sui::dynamic_field::{Self};
-
-    use nft_protocol::mint_event;
+    use sui::tx_context::{Self, TxContext}; use sui::dynamic_field::{Self}; use nft_protocol::mint_event;
     use nft_protocol::mint_cap;
     use nft_protocol::creators;
     use nft_protocol::royalty;
@@ -109,8 +106,6 @@ module module_name::module_name {
 
         // Enforce Royalty
         royalty_strategy_bps::enforce(&mut transfer_policy, &transfer_policy_cap);
-        let (p2p_policy, p2p_policy_cap) = transfer_request::init_policy<ModuleName>(&publisher, ctx);
-        nft_protocol::p2p_list::enforce(&mut p2p_policy, &p2p_policy_cap);
 
         let listing = listing::new(
             tx_context::sender(ctx),
@@ -139,13 +134,11 @@ module module_name::module_name {
         transfer::public_transfer(publisher, sender);
         transfer::public_transfer(mint_cap, sender);
         transfer::public_transfer(transfer_policy_cap, sender);
-        transfer::public_transfer(p2p_policy_cap, sender);
         transfer::public_transfer(withdraw_policy_cap, sender);
         transfer::public_share_object(listing);
         transfer::public_share_object(collection);
         transfer::public_share_object(transfer_policy);
         transfer::public_share_object(withdraw_policy);
-        transfer::public_share_object(p2p_policy);
     }
 
     public entry fun mint_nft(
